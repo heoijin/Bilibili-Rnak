@@ -11,29 +11,31 @@ class BlSpider(scrapy.Spider):
     #所以这里我们要重写start_urls，把排行榜页面的url列表赋值给start_urls
     start_urls = [
         'https://www.bilibili.com/v/popular/rank/all',
-        'https://www.bilibili.com/v/popular/rank/bangumi',
-        'https://www.bilibili.com/v/popular/rank/guochan',
-        'https://www.bilibili.com/v/popular/rank/guochuang',
-        'https://www.bilibili.com/v/popular/rank/documentary',
-        'https://www.bilibili.com/v/popular/rank/douga',
-        'https://www.bilibili.com/v/popular/rank/music',
-        'https://www.bilibili.com/v/popular/rank/dance',
-        'https://www.bilibili.com/v/popular/rank/game',
-        'https://www.bilibili.com/v/popular/rank/knowledge',
-        'https://www.bilibili.com/v/popular/rank/tech',
-        'https://www.bilibili.com/v/popular/rank/sports',
-        'https://www.bilibili.com/v/popular/rank/car',
-        'https://www.bilibili.com/v/popular/rank/life',
-        'https://www.bilibili.com/v/popular/rank/food',
-        'https://www.bilibili.com/v/popular/rank/animal',
-        'https://www.bilibili.com/v/popular/rank/kichiku',
-        'https://www.bilibili.com/v/popular/rank/fashion',
-        'https://www.bilibili.com/v/popular/rank/ent',
-        'https://www.bilibili.com/v/popular/rank/cinephile',
-        'https://www.bilibili.com/v/popular/rank/movie',
-        'https://www.bilibili.com/v/popular/rank/tv',
-        'https://www.bilibili.com/v/popular/rank/origin',
-        'https://www.bilibili.com/v/popular/rank/rookie'
+        
+        # Debug
+        #'https://www.bilibili.com/v/popular/rank/bangumi',
+        #'https://www.bilibili.com/v/popular/rank/guochan',
+        #'https://www.bilibili.com/v/popular/rank/guochuang',
+        #'https://www.bilibili.com/v/popular/rank/documentary',
+        #'https://www.bilibili.com/v/popular/rank/douga',
+        #'https://www.bilibili.com/v/popular/rank/music',
+        #'https://www.bilibili.com/v/popular/rank/dance',
+        #'https://www.bilibili.com/v/popular/rank/game',
+        #'https://www.bilibili.com/v/popular/rank/knowledge',
+        #'https://www.bilibili.com/v/popular/rank/tech',
+        #'https://www.bilibili.com/v/popular/rank/sports',
+        #'https://www.bilibili.com/v/popular/rank/car',
+        #'https://www.bilibili.com/v/popular/rank/life',
+        #'https://www.bilibili.com/v/popular/rank/food',
+        #'https://www.bilibili.com/v/popular/rank/animal',
+        #'https://www.bilibili.com/v/popular/rank/kichiku',
+        #'https://www.bilibili.com/v/popular/rank/fashion',
+        #'https://www.bilibili.com/v/popular/rank/ent',
+        #'https://www.bilibili.com/v/popular/rank/cinephile',
+        #'https://www.bilibili.com/v/popular/rank/movie',
+        #'https://www.bilibili.com/v/popular/rank/tv',
+        #'https://www.bilibili.com/v/popular/rank/origin',
+        #'https://www.bilibili.com/v/popular/rank/rookie'
     ]
 
     def parse(self, response):
@@ -46,23 +48,23 @@ class BlSpider(scrapy.Spider):
         #视频的信息都放在li标签中，这里先获取所有的li标签
         #之后遍历rank_lists获取每个视频的信息
         rank_lists = response.xpath('//ul[@class="rank-list"]/li')
-        for rank_list in rank_lists:
+        for rank_list in rank_lists[:2]: # Debug
             rank_num = rank_list.attrib['data-rank']
             #rank_num = rank_list.xpath('li[@data-rank]').get()
-            print("rank_num:", rank_num)
+            #print("rank_num:", rank_num)
             title = rank_list.xpath('div/div[@class="info"]/a/text()').get()
-            print("title:", title)
+            #print("title:", title)
             # 抓取视频的url，切片后获得视频的id
             id = rank_list.xpath(
                 'div/div[@class="info"]/div[@class="detail"]/a[@target="_blank"]/@href'
             ).get().split('/')[-1]
-            print("id:", id)
+            #print("id:", id)
             # 拼接详情页api的url
             Detail_link = f'https://api.bilibili.com/x/web-interface/archive/stat?aid={id}'
             Labels_link = f'https://api.bilibili.com/x/tag/archive/tags?aid={id}'
             author = rank_list.xpath(
                 'div/div[@class="info"]/div[@class="detail"]/a/span/text()'
-            ).get()
+            ).get().strip()
             score = rank_list.xpath(
                 'div/div[@class="info"]/div[@class="pts"]/div/text()').get()
             #如用requests库发送请求，要再写多一次请求头
