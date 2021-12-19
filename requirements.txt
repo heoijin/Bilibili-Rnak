@@ -1,0 +1,4 @@
+pandas==1.2.4
+pyecharts==1.9.1
+scrapy==2.5.1
+snapshot_selenium==0.0.2
