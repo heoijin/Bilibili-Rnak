@@ -12,29 +12,29 @@ class BlSpider(scrapy.Spider):
     start_urls = [
         'https://www.bilibili.com/v/popular/rank/all',
         # Debug
-        #'https://www.bilibili.com/v/popular/rank/bangumi',
-        #'https://www.bilibili.com/v/popular/rank/guochan',
-        #'https://www.bilibili.com/v/popular/rank/guochuang',
-        #'https://www.bilibili.com/v/popular/rank/documentary',
-        #'https://www.bilibili.com/v/popular/rank/douga',
-        #'https://www.bilibili.com/v/popular/rank/music',
-        #'https://www.bilibili.com/v/popular/rank/dance',
-        #'https://www.bilibili.com/v/popular/rank/game',
-        #'https://www.bilibili.com/v/popular/rank/knowledge',
-        #'https://www.bilibili.com/v/popular/rank/tech',
-        #'https://www.bilibili.com/v/popular/rank/sports',
-        #'https://www.bilibili.com/v/popular/rank/car',
-        #'https://www.bilibili.com/v/popular/rank/life',
-        #'https://www.bilibili.com/v/popular/rank/food',
-        #'https://www.bilibili.com/v/popular/rank/animal',
-        #'https://www.bilibili.com/v/popular/rank/kichiku',
-        #'https://www.bilibili.com/v/popular/rank/fashion',
-        #'https://www.bilibili.com/v/popular/rank/ent',
-        #'https://www.bilibili.com/v/popular/rank/cinephile',
-        #'https://www.bilibili.com/v/popular/rank/movie',
-        #'https://www.bilibili.com/v/popular/rank/tv',
-        #'https://www.bilibili.com/v/popular/rank/origin',
-        #'https://www.bilibili.com/v/popular/rank/rookie'
+        'https://www.bilibili.com/v/popular/rank/bangumi',
+        'https://www.bilibili.com/v/popular/rank/guochan',
+        'https://www.bilibili.com/v/popular/rank/guochuang',
+        'https://www.bilibili.com/v/popular/rank/documentary',
+        'https://www.bilibili.com/v/popular/rank/douga',
+        'https://www.bilibili.com/v/popular/rank/music',
+        'https://www.bilibili.com/v/popular/rank/dance',
+        'https://www.bilibili.com/v/popular/rank/game',
+        'https://www.bilibili.com/v/popular/rank/knowledge',
+        'https://www.bilibili.com/v/popular/rank/tech',
+        'https://www.bilibili.com/v/popular/rank/sports',
+        'https://www.bilibili.com/v/popular/rank/car',
+        'https://www.bilibili.com/v/popular/rank/life',
+        'https://www.bilibili.com/v/popular/rank/food',
+        'https://www.bilibili.com/v/popular/rank/animal',
+        'https://www.bilibili.com/v/popular/rank/kichiku',
+        'https://www.bilibili.com/v/popular/rank/fashion',
+        'https://www.bilibili.com/v/popular/rank/ent',
+        'https://www.bilibili.com/v/popular/rank/cinephile',
+        'https://www.bilibili.com/v/popular/rank/movie',
+        'https://www.bilibili.com/v/popular/rank/tv',
+        'https://www.bilibili.com/v/popular/rank/origin',
+        'https://www.bilibili.com/v/popular/rank/rookie'
     ]
 
     def parse(self, response):
@@ -47,7 +47,7 @@ class BlSpider(scrapy.Spider):
         #视频的信息都放在li标签中，这里先获取所有的li标签
         #之后遍历rank_lists获取每个视频的信息
         rank_lists = response.xpath('//ul[@class="rank-list"]/li')
-        for rank_list in rank_lists[:5]: # Debug
+        for rank_list in rank_lists: # Debug
             rank_num = rank_list.attrib['data-rank']
             #rank_num = rank_list.xpath('li[@data-rank]').get()
             #print("rank_num:", rank_num)
