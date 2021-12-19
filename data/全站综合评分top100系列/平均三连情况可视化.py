@@ -7,7 +7,7 @@ from snapshot_selenium import snapshot
 
 #读取数据并构建雷达图的数据结构
 def bulid_data():
-    df=pd.read_csv('top100情况.csv')
+    df=pd.read_csv('top100情况.csv','\t')
     #这里的print是帮助提取genre来批量构建雷达图的标签
     print(df['genre'].tolist())
     #out：['动画', '娱乐', '影视', '时尚', '游戏', '生活', '科技', '音乐', '鬼畜']

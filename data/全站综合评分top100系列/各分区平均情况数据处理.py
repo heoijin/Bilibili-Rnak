@@ -3,7 +3,7 @@ import pandas as pd
 
 # 数据预清洗
 def get_date():
-    df=pd.read_csv('srcfile/bilibili.csv')
+    df=pd.read_csv('srcfile/bilibili.csv','\t')
     # print(df.info())
     #波浪线~表示不选取该部分
     df_without_all=df[~df['rank_tab'].isin(['全站'])]
