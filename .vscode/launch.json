@@ -4,7 +4,7 @@
     // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        {
+       {
             "name": "Python: 当前文件",
             "type": "python",
             "module": "scrapy",
@@ -16,5 +16,13 @@
                 "bl"
             ]
         }
+        /*{
+            "name": "Python: 当前文件",
+            "type": "python",
+            //"module": "scrapy",
+            "request": "launch",
+            "program": "${workspaceFolder}/data/数据预清洗.py",
+            "console": "integratedTerminal",
+        }*/
     ]
 }

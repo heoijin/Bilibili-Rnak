@@ -11,31 +11,30 @@ class BlSpider(scrapy.Spider):
     #所以这里我们要重写start_urls，把排行榜页面的url列表赋值给start_urls
     start_urls = [
         'https://www.bilibili.com/v/popular/rank/all',
-        
         # Debug
-        'https://www.bilibili.com/v/popular/rank/bangumi',
-        'https://www.bilibili.com/v/popular/rank/guochan',
-        'https://www.bilibili.com/v/popular/rank/guochuang',
-        'https://www.bilibili.com/v/popular/rank/documentary',
-        'https://www.bilibili.com/v/popular/rank/douga',
-        'https://www.bilibili.com/v/popular/rank/music',
-        'https://www.bilibili.com/v/popular/rank/dance',
-        'https://www.bilibili.com/v/popular/rank/game',
-        'https://www.bilibili.com/v/popular/rank/knowledge',
-        'https://www.bilibili.com/v/popular/rank/tech',
-        'https://www.bilibili.com/v/popular/rank/sports',
-        'https://www.bilibili.com/v/popular/rank/car',
-        'https://www.bilibili.com/v/popular/rank/life',
-        'https://www.bilibili.com/v/popular/rank/food',
-        'https://www.bilibili.com/v/popular/rank/animal',
-        'https://www.bilibili.com/v/popular/rank/kichiku',
-        'https://www.bilibili.com/v/popular/rank/fashion',
-        'https://www.bilibili.com/v/popular/rank/ent',
-        'https://www.bilibili.com/v/popular/rank/cinephile',
-        'https://www.bilibili.com/v/popular/rank/movie',
-        'https://www.bilibili.com/v/popular/rank/tv',
-        'https://www.bilibili.com/v/popular/rank/origin',
-        'https://www.bilibili.com/v/popular/rank/rookie'
+        #'https://www.bilibili.com/v/popular/rank/bangumi',
+        #'https://www.bilibili.com/v/popular/rank/guochan',
+        #'https://www.bilibili.com/v/popular/rank/guochuang',
+        #'https://www.bilibili.com/v/popular/rank/documentary',
+        #'https://www.bilibili.com/v/popular/rank/douga',
+        #'https://www.bilibili.com/v/popular/rank/music',
+        #'https://www.bilibili.com/v/popular/rank/dance',
+        #'https://www.bilibili.com/v/popular/rank/game',
+        #'https://www.bilibili.com/v/popular/rank/knowledge',
+        #'https://www.bilibili.com/v/popular/rank/tech',
+        #'https://www.bilibili.com/v/popular/rank/sports',
+        #'https://www.bilibili.com/v/popular/rank/car',
+        #'https://www.bilibili.com/v/popular/rank/life',
+        #'https://www.bilibili.com/v/popular/rank/food',
+        #'https://www.bilibili.com/v/popular/rank/animal',
+        #'https://www.bilibili.com/v/popular/rank/kichiku',
+        #'https://www.bilibili.com/v/popular/rank/fashion',
+        #'https://www.bilibili.com/v/popular/rank/ent',
+        #'https://www.bilibili.com/v/popular/rank/cinephile',
+        #'https://www.bilibili.com/v/popular/rank/movie',
+        #'https://www.bilibili.com/v/popular/rank/tv',
+        #'https://www.bilibili.com/v/popular/rank/origin',
+        #'https://www.bilibili.com/v/popular/rank/rookie'
     ]
 
     def parse(self, response):
@@ -48,7 +47,7 @@ class BlSpider(scrapy.Spider):
         #视频的信息都放在li标签中，这里先获取所有的li标签
         #之后遍历rank_lists获取每个视频的信息
         rank_lists = response.xpath('//ul[@class="rank-list"]/li')
-        for rank_list in rank_lists: # Debug
+        for rank_list in rank_lists[:5]: # Debug
             rank_num = rank_list.attrib['data-rank']
             #rank_num = rank_list.xpath('li[@data-rank]').get()
             #print("rank_num:", rank_num)
@@ -117,13 +116,13 @@ class BlSpider(scrapy.Spider):
         # 获取详细播放信息
         stat = html['data']
 
-        view = stat['view']
+        view_num = stat['view']
         danmaku = stat['danmaku']
         reply = stat['reply']
         favorite = stat['favorite']
         coin = stat['coin']
-        share = stat['share']
-        like = stat['like']
+        share_num = stat['share']
+        like_num = stat['like']
         #利用逗号分割列表，返回字符串
 
         # 把所有爬取的信息传递给Item
@@ -133,12 +132,12 @@ class BlSpider(scrapy.Spider):
                         id=id,
                         author=author,
                         score=score,
-                        view=view,
+                        view_num=view_num,
                         danmaku=danmaku,
                         reply=reply,
                         favorite=favorite,
                         coin=coin,
-                        share=share,
-                        like=like,
+                        share_num=share_num,
+                        like_num=like_num,
                         tag_name=tag_name)
         yield item

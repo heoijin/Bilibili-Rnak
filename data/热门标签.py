@@ -4,7 +4,7 @@ from  pyecharts.charts import WordCloud
 
 
 def get_date():
-    df=pd.read_csv('bilibili.csv')
+    df=pd.read_csv('srcfile/bilibili.csv')
     # print(df.info())
     #波浪线~表示不选取该部分
     df_without_all=df[~df['rank_tab'].isin(['全站'])]
@@ -36,5 +36,5 @@ if __name__ == '__main__':
     df_without_all=get_date()
     df_1=df_without_all.groupby(by='rank_tab')['title'].count()
     print(df_1)
-    # tags_count=build_tags_value(df_without_all)
-    # make_snapshot(snapshot,wordcliud_base(tags_count).render(),'热门标签词云.png')
+    #tags_count=build_tags_value(df_without_all)
+    #make_snapshot(snapshot,wordcliud_base(tags_count).render(),'热门标签词云.png')
