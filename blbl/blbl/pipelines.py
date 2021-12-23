@@ -10,12 +10,13 @@ from scrapy.exporters import CsvItemExporter
 class BlblPipeline(object):
     def __init__(self):
         # a为追加写入模式，这里要用二进制的方式打开
-        self.fp=open('bilibili.csv','ab')
+        self.fp=open('../data/srcfile/bilibili.csv','ab')
         #include_headers_line默认为True
         # 能够帮我们自动写入表头，并且在追加写入数据的时候不会造成表头重复
         self.exportre=CsvItemExporter(
             self.fp,
             include_headers_line=True,
+            delimiter="\t",
             encoding='utf-8-sig'
         )
     def open_spider(self,spider):

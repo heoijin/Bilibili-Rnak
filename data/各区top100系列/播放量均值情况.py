@@ -5,7 +5,7 @@ from pyecharts.render import make_snapshot
 from snapshot_selenium import snapshot
 
 def open_file():
-    df=pd.read_csv('各分类情况.csv')
+    df=pd.read_csv('各分类情况.csv','\t')
     genre=df['genre'].tolist()
     view=df['view'].tolist()
     #对数据进行一定的缩放

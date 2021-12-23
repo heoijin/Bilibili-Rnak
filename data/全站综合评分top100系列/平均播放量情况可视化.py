@@ -12,7 +12,7 @@ from snapshot_selenium import snapshot
 
 #读取数据
 def open_file():
-    df=pd.read_csv('top100情况.csv')
+    df=pd.read_csv('top100情况.csv','\t')
     title=df['genre'].tolist()
     view=df['view'].tolist()
     return title,view
